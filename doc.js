@@ -37,7 +37,7 @@ reducer(previousState, action);
     type: BUY_CAKE,
     info: "first redux action",
   }
-//_______ Action Creator 
+//_______ Action & Action Creator 
 const BUY_CAKE = "BUY_CAKE";
 function buyCake() {
   return {
@@ -83,3 +83,85 @@ store.dispatch(buyCake());
 store.dispatch(buyCake());
 unsubscribe();
 
+// =========================================================================
+// ==================   use single reducer for multiple action    =======================
+// =========================================================================
+
+const BUY_CAKE = "BUY_CAKE";
+const BUY_ICECREAM = "BUY_ICECREAM";
+
+function buyCake() {
+  return {
+    type: BUY_CAKE,
+    info: "buying Cake",
+  };
+}
+
+function buyIceCream() {
+  return {
+    type: BUY_ICECREAM,
+    info: "buying icecream",
+  };
+}
+
+const initailState ={ 
+    numOfCake : 10,
+    numOfIceCream: 20,
+}
+
+const reducer = (state = initailState, action)=>{
+    if(action.type === 'BUY_CAKE'){
+
+        return {...state, numOfCake : state.numOfCake + 1}
+    }
+    if(action.type === BUY_ICECREAM){
+
+        return {...state, numOfIceCream : state.numOfIceCream + 1}
+    }
+}
+
+const redux = require('redux');
+const store = redux.createStore(reducer);
+
+console.log('intinal State', store.getState());
+const unsubscribe = store.subscribe(()=>{console.log('upadate State', getState())});
+store.dispatch(buyCake());
+store.dispatch(buyCake());
+store.dispatch(buyIceCream());
+store.dispatch(buyIceCream());
+unsubscribe();
+
+
+// ================================= MIDDLE WARE
+//extend redux custom functionality 
+// third party exxtension
+// loggers, creash reporting, performance 
+// Redux logger npm i redux-logger
+
+// ================================= ASYNC Functions
+//data fetching
+//--------------- state
+state={
+loading: true,
+data: [],
+error: ''
+}
+// loading, users , error
+
+//--------------- action
+FETCH_USERS_REQUEST
+FETCH_USERS_SUCCSS
+FETCH_USERS_FAILURE
+// fetch list of user, fetch success, fetch failure
+
+//--------------- reducer
+    case: FETCH_USERS_REQUEST
+    loading: true
+
+    case: FETCH_USERS_SUCCSS
+    loading: false
+    users: data[from API]
+
+    case: FETCH_USERS_FAILURE
+    loading: false
+    error: 'error from API'
