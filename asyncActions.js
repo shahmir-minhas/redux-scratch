@@ -3,7 +3,6 @@ const applyMiddleware = redux.applyMiddleware;
 const thunk = require("redux-thunk").default;
 const axios = require("axios");
 
-
 //=========================================
 // ============   initial states ========
 //=========================================
@@ -79,7 +78,7 @@ const fetchUsers = () => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((res) => {
-        const users = res.map((u) => u.id);
+        const users = res.data.map((u) => u.id);
         dispatch(fetchUserSuccess(users));
       })
       .catch((err) => dispatch(fetchUserFailure(err.message)));
@@ -90,7 +89,6 @@ const fetchUsers = () => {
 // ============   Store  ========
 //=========================================
 
-
 const store = redux.createStore(reducer, applyMiddleware(thunk));
 
 console.log("inital state", store.getState());
@@ -98,4 +96,4 @@ store.subscribe(() => {
   console.log("subscribe", store.getState());
 });
 
-store.dispatch(fetchUsers);
+store.dispatch(fetchUsers());
