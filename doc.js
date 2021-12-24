@@ -165,3 +165,12 @@ FETCH_USERS_FAILURE
     case: FETCH_USERS_FAILURE
     loading: false
     error: 'error from API'
+
+// ================================= Redux Thunk Middleware
+
+// ==> axios
+// req to an api end point
+
+// ==> redux-thunk
+// define async action creator
+// middleware
